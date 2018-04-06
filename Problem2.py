@@ -10,8 +10,8 @@ import logging
 logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s- %(message)s')
 
 # Initialize
-upper = 4 * 10e6
-a = 1
+upper = 4 * 1e6
+a = 0
 b = 1
 fib = 1
 s = 0
