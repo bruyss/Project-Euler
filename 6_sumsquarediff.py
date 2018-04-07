@@ -9,16 +9,16 @@ logging.basicConfig(level=logging.CRITICAL, format=' %(asctime)s - %(levelname)s
 
 def sumsquare(n):
     s = 0
-    for i in range(n+1):
-        s += i*i
+    for i in range(n + 1):
+        s += i * i
     return s
 
 
 def squaresum(n):
     s = 0
-    for i in range(n+1):
+    for i in range(n + 1):
         s += i
-    return s*s
+    return s * s
 
 
 # Constants
