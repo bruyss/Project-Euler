@@ -5,7 +5,7 @@
 from functools import reduce
 import logging
 
-logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s- %(message)s')
+logging.basicConfig(level=logging.CRITICAL, format=' %(asctime)s - %(levelname)s- %(message)s')
 
 
 def txtreader(filename):
@@ -109,7 +109,7 @@ def diagLcheck(grid):
 
 
 # Constants
-length = 4
+length = 6
 
 # Read number grid
 grid = txtreader('11_productgrid')
