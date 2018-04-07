@@ -5,7 +5,7 @@
 import math
 import logging
 
-logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s- %(message)s')
+logging.basicConfig(level=logging.CRITICAL, format=' %(asctime)s - %(levelname)s- %(message)s')
 
 
 # noinspection PyShadowingNames
