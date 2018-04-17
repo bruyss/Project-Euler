@@ -9,25 +9,38 @@ import logging
 logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s- %(message)s')
 
 
+def primefactors(x):
+    pfactors = {}
+    while x % 2 == 0:
+        pfactors[2] = pfactors.get(2, 0) + 1
+        x //= 2
+    factor = 3
+    while x > 1:
+        while x % factor == 0:
+            pfactors[factor] = pfactors.get(factor, 0) + 1
+            x //= factor
+        factor += 2
+    logging.debug('Prime factors are %s' % pfactors)
+    return pfactors
+
+
 def countdivisors(x):
     divisors = 0
-    for div in range(1, x + 1):
-        if x % div == 0:
-            logging.debug('%d is a divisor of %d' % (div, x))
-            divisors += 1
+    pfactors = primefactors(x)
+    for value in pfactors.values():
+        divisors += value + 1
+    logging.debug('%d has %d divisors' % (x, divisors))
     return divisors
 
 
 # Init
 limit = 500
-triangle_numbers = []
-num = 0
-i = 1
+num = 1
+i = 2
 
 while countdivisors(num) < limit:
     num += i
     i += 1
-    triangle_numbers.append(num)
-    logging.debug('Triangle number #%d is %d' % (i-1, num))
+    logging.debug('Triangle number #%d is %d' % (i - 1, num))
 
-print('The first triangle number with %d divisors is %d' % (limit, triangle_numbers[-1]))
+print('The first triangle number with %d divisors is %d' % (limit, num))
