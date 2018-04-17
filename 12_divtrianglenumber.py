@@ -6,30 +6,41 @@
 
 import logging
 
-logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s- %(message)s')
+logging.basicConfig(level=logging.CRITICAL, format=' %(asctime)s - %(levelname)s- %(message)s')
 
 
-def primefactors(x):
-    pfactors = {}
-    while x % 2 == 0:
-        pfactors[2] = pfactors.get(2, 0) + 1
-        x //= 2
-    factor = 3
-    while x > 1:
-        while x % factor == 0:
-            pfactors[factor] = pfactors.get(factor, 0) + 1
-            x //= factor
-        factor += 2
-    logging.debug('Prime factors are %s' % pfactors)
-    return pfactors
+# def primefactors(x):
+#     pfactors = {}
+#     while x % 2 == 0:
+#         pfactors[2] = pfactors.get(2, 0) + 1
+#         x //= 2
+#     factor = 3
+#     while x > 1:
+#         while x % factor == 0:
+#             pfactors[factor] = pfactors.get(factor, 0) + 1
+#             x //= factor
+#         factor += 2
+#     logging.debug('Prime factors are %s' % pfactors)
+#     return pfactors
 
 
 def countdivisors(x):
-    divisors = 0
-    pfactors = primefactors(x)
-    for value in pfactors.values():
-        divisors += value + 1
-    logging.debug('%d has %d divisors' % (x, divisors))
+    xh = x
+    divisors = 1
+    h = 0
+    while x % 2 == 0:       # Find multiples of 2
+        h += 1
+        x //= 2
+    divisors *= h + 1
+    factor = 3
+    while x > 1:            # Find multiples of all other primes
+        h = 0
+        while x % factor == 0:
+            h += 1
+            x //= factor
+        divisors *= h + 1
+        factor += 2
+    logging.debug('%d has %d divisors' % (xh, divisors))
     return divisors
 
 
