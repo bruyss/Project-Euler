@@ -4,7 +4,7 @@
 import logging
 import pprint
 
-logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s- %(message)s')
+logging.basicConfig(level=logging.CRITICAL, format=' %(asctime)s - %(levelname)s- %(message)s')
 
 
 def txtreader(filename):
@@ -34,5 +34,5 @@ for i in range(2**len(pyr)):
         max = s
         max_order = orderstr
         logging.debug('New max %d' % max)
-logging.debug('Max is %d at %s' % (max, max_order))
+print('Max is %d at %s' % (max, max_order))
 # pprint.pprint(pyr)
