@@ -17,13 +17,22 @@ def txtreader(filename):
     return grid
 
 
-def getdigits(num):
-    digits = []
-    while num > 0:
-        digits.append(num % 10)
-        num = num // 10
-    return digits
-
-
 pyr = txtreader('18_maxpathsum')
-pprint.pprint(pyr)
+formatstr = '{0:0%db}' % len(pyr)
+max = 0
+max_order = ''
+for i in range(2**len(pyr)):
+    orderstr = formatstr.format(i)[::-1]
+    logging.debug(orderstr)
+    s = 0
+    idx = 0
+    for j in range(len(pyr)):
+        logging.debug('Adding %s at (%d,%d)' % (pyr[j][idx], j, idx))
+        s += int(pyr[j][idx])
+        idx += int(orderstr[j])
+    if s > max:
+        max = s
+        max_order = orderstr
+        logging.debug('New max %d' % max)
+logging.debug('Max is %d at %s' % (max, max_order))
+# pprint.pprint(pyr)
