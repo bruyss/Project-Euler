@@ -31,3 +31,4 @@ for i in range(len(abundant)):
         j += 1
 
 print(sum(non_abundant))
+input('Press enter...')
