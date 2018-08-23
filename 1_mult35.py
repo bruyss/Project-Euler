@@ -25,3 +25,4 @@ for i in range(1, upper):
 
 # Result
 print("The sum of all natural numbers below %d that are multiples of 3 or 5 is %d" % (upper, sum))
+wait = input("Press enter")
