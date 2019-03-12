@@ -5,10 +5,6 @@
 # By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the
 # even-valued terms.
 
-import logging
-
-logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s- %(message)s')
-
 # Initialize
 upper = int(4 * 1e6)
 a = 0
@@ -19,9 +15,7 @@ s = 0
 while fib < upper:
     if fib % 2 == 0:
         s += fib
-        logging.debug("Current sum value: %d" % s)
     fib = a + b
-    logging.debug("Current number: %d" % fib)
     a = b
     b = fib
 
