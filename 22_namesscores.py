@@ -5,12 +5,11 @@
 def alph_value(s):
     a_value = 0
     for c in s:
-      a_value += ord(c) - ord('A') + 1
+        a_value += ord(c) - ord('A') + 1
     return a_value
 
 
 assert alph_value('COLIN') == 53
-
 
 file = open('22_names.txt')
 names = file.read().split(',')
@@ -26,6 +25,6 @@ for name in names:
 answer = 0
 
 for name in sorted_names:
-    answer += alph_value(name)*(sorted_names.index(name) + 1)
+    answer += alph_value(name) * (sorted_names.index(name) + 1)
 
 print(answer)
