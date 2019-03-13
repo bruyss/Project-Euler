@@ -10,14 +10,14 @@ polynomials = []
 k = 1
 
 for k in range(1, max(coinvalues)):
-	poly = [0] * (max(coinvalues) + 1)
-	ite = set(range(0, max(coinvalues) + 1, k)) & set(coinvalues)
-	print(list(range(0, max(coinvalues) + 1, k)))
-	print(ite)
-	for i in ite:
-		poly[i] = 1
-		poly.reverse
-		polynomials.append(poly)
+    poly = [0] * (max(coinvalues) + 1)
+    ite = set(range(0, max(coinvalues) + 1, k)) & set(coinvalues)
+    print(list(range(0, max(coinvalues) + 1, k)))
+    print(ite)
+    for i in ite:
+        poly[i] = 1
+        poly.reverse
+        polynomials.append(poly)
 
 
 print(polynomials)
@@ -26,7 +26,7 @@ res = conv(polynomials[0], polynomials[1])
 print(res)
 
 for pol in polynomials:
-	res = conv(res, pol)
+    res = conv(res, pol)
 
 print(res)
 print(len(res))
