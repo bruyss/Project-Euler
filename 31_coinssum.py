@@ -4,30 +4,26 @@
 from numpy import convolve as conv
 
 # coinvalues = (1, 2, 5, 10, 20, 50, 100, 200)
-coinvalues = (1, 2, 3)
+# coinvalues = [1, 2, 5]
+coinvalues = list(range(1, 21))
+
+# coinvalues_asc = sorted(coinvalues)
+# coinvalues_desc = sorted(coinvalues, reverse = True)
+
 polynomials = []
 
-k = 1
+for i in range(1, max(coinvalues) + 1):
+    poly = [1] + [0] * (max(coinvalues))
+    cur_coins = list(filter(lambda x: not x % i, coinvalues))
+    print(f'{i}: {cur_coins}')
+    for coin in cur_coins:
+        poly[coin] = 1
+    print(poly)
+    polynomials.append(poly)
 
-for k in range(1, max(coinvalues)):
-    poly = [0] * (max(coinvalues) + 1)
-    ite = set(range(0, max(coinvalues) + 1, k)) & set(coinvalues)
-    print(list(range(0, max(coinvalues) + 1, k)))
-    print(ite)
-    for i in ite:
-        poly[i] = 1
-        poly.reverse
-        polynomials.append(poly)
+res = [1]
 
-
-print(polynomials)
-
-res = conv(polynomials[0], polynomials[1])
-print(res)
-
-for pol in polynomials:
-    res = conv(res, pol)
+for poly in polynomials:
+    res = conv(res, poly)
 
 print(res)
-print(len(res))
-print(res[0])
