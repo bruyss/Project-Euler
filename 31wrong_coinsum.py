@@ -18,6 +18,8 @@ while partitions[-1][-1] != 1:
 		new_partition = partitions[-1]
 		new_partition[nz_index] -= 1
 		new_partition[nz_index + 1] += 1
+		new_partition[0] = max(coinvalues)
+		
 	partitions.append(new_partition)
 	print(new_partition)
 	input()
