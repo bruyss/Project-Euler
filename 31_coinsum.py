@@ -1,6 +1,6 @@
 #! python3
 
-S = (1, 2, 5, 10, 20, 50, 100, 200)
+S = (1, 2, 5, 10, 20, 50, 100, 200, 500)
 
 
 def count( n, m ):
@@ -12,4 +12,4 @@ def count( n, m ):
     return count( n, m - 1 ) + count( n - S[m], m )
 	
 
-print(count(200, 7))
+print(count(max(S), len(S) - 1))

@@ -21,10 +21,11 @@ def getdigits(num):
 def is_panprod(ma, mp):
 	prod = ma * mp
 	digits = getdigits(ma) + getdigits(mp) + getdigits(prod)
-	if digits.sort == range(1, 10):
-		return prod, True
+	digits.sort()
+	if digits == list(range(1, 10)):
+		return True
 	else:
-		return prod, False
+		return False
 		
 
 def flog(x):
@@ -32,13 +33,11 @@ def flog(x):
 	
 
 pandigital_products = set([])
+assert(is_panprod(39, 186))
 
-for multiplicand in range(1, 10**5 + 1):
-	for multiplier in range (10**(8 - flog(multiplicand)), 10**(9 - flog(multiplicand))):
-		product, is_pan = is_panprod(multiplicand, multiplier)
-		print(f'{multiplicand} x {multiplier} = {product}')
-		if is_pan: 
-			pandigital_products.append(product)
+multiplicand = 1
+multiplier = 1
+
 
 print(pandigital_products)
 
