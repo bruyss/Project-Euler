@@ -35,10 +35,14 @@ def flog(x):
 pandigital_products = set([])
 assert(is_panprod(39, 186))
 
-multiplicand = 1
-multiplier = 1
+for multiplicand in range(1, 10**5 + 1):
+	multiplier = multiplicand + 1
+	while flog(multiplicand) + flog(multiplier) + flog(multiplicand * multiplier) <= 9:
+		print(f'{multiplicand} x {multiplier}')
+		if is_panprod(multiplicand, multiplier):
+			pandigital_products.add(multiplicand * multiplier)
+		multiplier += 1
 
+print(sum(pandigital_products)) # 45228
 
-print(pandigital_products)
-
-			
+	
