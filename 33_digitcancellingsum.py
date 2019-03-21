@@ -11,6 +11,7 @@
 # find the value of the denominator.
 
 import fractions
+from functools import reduce
 
 
 def getdigits(num):
@@ -50,5 +51,8 @@ for n in range(10, 100):
 		dumb_simp = dumb_simplify(n, d)
 		dumb_frac = fractions.Fraction(dumb_simp[0], dumb_simp[1])
 		if frac == dumb_frac:
-			res.append((n, d))
+			res.append(frac)
 			print(f'{n}/{d}')
+
+product = reduce((lambda x, y: x*y), res)
+print(product)
