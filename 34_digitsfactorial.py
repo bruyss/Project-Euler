@@ -6,20 +6,16 @@
 #
 # Note: as 1! = 1 and 2! = 2 are not sums they are not included.
 
-from math import log10 as log
-from math import floor
-
-
-def flog(x):
-	return floor(log(x))
-	
 
 def factorial(x):
-    f = x
-    while x > 1:
-        x -= 1
-        f *= x
-    return f
+	if x == 0:
+		return 1
+	else:
+		f = x
+		while x > 1:
+			x -= 1
+			f *= x
+		return f
 
 
 def getdigits(num):
@@ -38,16 +34,29 @@ def factsum(x):
 
 
 res = []
+x = 3
 
-# while x < 10**6:
-	# x_factsum = factsum(x)
-	# if x == x_factsum:
-		# res.append(x)
-		# print(x)
-	# if x_factsum < x:
+try:
+	while x < 2540160:
+		x_factsum = factsum(x)
+		# print(f'{x}: {x_factsum}')
+		# input()
+		if x == x_factsum:
+			res.append(x)
+			print(x)
+		if x_factsum <= x:
+			x += 1
+		else:
+			p = 1
+			while factsum(x) > x:
+				x = ((x // (10**p)) + 1) * 10**p
+				# print(f'{x}: {factsum(x)}')
+				p += 1
 		# x += 1
-	# else:
-		# p = 1
+except KeyboardInterrupt:
+	print('Interupted')
+finally:
+	print(f'Done: {sum(res)}') # 40730
 		
 	
 	
