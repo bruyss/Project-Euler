@@ -1,8 +1,8 @@
 #! python3
-# The number, 197, is called a circular prime because all rotations of 
+# The number, 197, is called a circular prime because all rotations of
 # the digits: 197, 971, and 719, are themselves prime.
 #
-# There are thirteen such primes below 100: 2, 3, 5, 7, 11, 13, 17, 
+# There are thirteen such primes below 100: 2, 3, 5, 7, 11, 13, 17,
 # 31, 37, 71, 73, 79, and 97.
 #
 # How many circular primes are there below one million?
@@ -41,7 +41,7 @@ def atkin(nmax):
         else:
             pass
     return primes
-	
+
 
 def getdigits(num):
     digits = []
@@ -49,29 +49,29 @@ def getdigits(num):
         digits.insert(0, num % 10)
         num = num // 10
     return digits
-	
+
 
 def digits2int(digits):
-	s = ''
-	for digit in digits:
-		s += str(digit)
-	return int(s)
+    s = ''
+    for digit in digits:
+        s += str(digit)
+    return int(s)
 
 
 def rotation(x):
-	digits = getdigits(x)
-	rotations = []
-	if len(digits) == 1:
-		return [x]
-	else:
-		new_rotation = 0
-		while new_rotation != x:
-			digits.insert(0, digits[-1])
-			digits = digits[:-1]
-			new_rotation = digits2int(digits)
-			rotations.append(new_rotation)
-		return rotations
-	
+    digits = getdigits(x)
+    rotations = []
+    if len(digits) == 1:
+        return [x]
+    else:
+        new_rotation = 0
+        while new_rotation != x:
+            digits.insert(0, digits[-1])
+            digits = digits[:-1]
+            new_rotation = digits2int(digits)
+            rotations.append(new_rotation)
+        return rotations
+
 
 limit = 10**6
 primes = set(atkin(limit))
@@ -79,10 +79,10 @@ primes = set(atkin(limit))
 circprimes = set([])
 
 for prime in primes:
-	rotations = set(rotation(prime))
-	if rotations < primes:
-		print(prime)
-		circprimes |= rotations
-	
+    rotations = set(rotation(prime))
+    if rotations < primes:
+        print(prime)
+        circprimes |= rotations
+
 print(sorted(list(circprimes)))
-print(len(circprimes))		
+print(len(circprimes))
