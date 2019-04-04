@@ -12,15 +12,15 @@ res_n = 0
 
 for n in range(1, n_max + 1):
 	res = 0
-	for x in range(1, n + 1):
-		for y in range(x, n + 1):
-			for z in range(y, n + 1):
-				if sum([x, y, z]) == n:
-					if x**2 + y**2 == z**2:
-						print(f"{n}: ({x}, {y}, {z})")
-						res += 1
-				if x**2 + y**2 < z**2:
-					break
+	for a in range(1, n):
+		b = a
+		while a + b < n:
+			c = n - a - b
+			# print(f"({a}, {b}, {c})")
+			if a**2 + b**2 == c**2:
+				print(f"{n}: ({a}, {b}, {c})")
+				res += 1
+			b += 1		
 	if res > res_max:
 		res_max = res
 		res_n = n
