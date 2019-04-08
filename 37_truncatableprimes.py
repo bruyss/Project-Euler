@@ -1,5 +1,5 @@
 #! python3
-# The number 3797 has an interesting property. Being prime itself, it is possible to continuously remove 
+# The number 3797 has an interesting property. Being prime itself, it is possible to continuously remove
 # digits from left to right, and remain prime at each stage: 3797, 797, 97, and 7. Similarly we can work from right to left: 3797, 379, 37, and 3.
 #
 # Find the sum of the only eleven primes that are both truncatable from left to right and right to left.
@@ -20,7 +20,7 @@ def is_prime(n):
             return False
         i += 6
     return True
-    
+
 
 def left_truncatable(n):
     if not is_prime(n) or len(str(n)) <= 1:
@@ -31,7 +31,7 @@ def left_truncatable(n):
             if not is_prime(n):
                 return False
         return True
-        
+
 
 def right_truncatable(n):
     if not is_prime(n) or len(str(n)) <= 1:
@@ -43,7 +43,7 @@ def right_truncatable(n):
             if not is_prime(n):
                 return False
         return True
-        
+
 
 is_truncable = (lambda x: left_truncatable(x) and right_truncatable(x))
 assert(is_truncable(3797))
@@ -52,9 +52,9 @@ res = []
 n = 11
 
 while len(res) < 11:
-	if is_truncable(n):
-		print(n)
-		res.append(n)
-	n += 1
-	
-print(f"Answer: {sum(res)}")
+    if is_truncable(n):
+        print(n)
+        res.append(n)
+    n += 2
+
+print(f"\nAnswer: {sum(res)}")
