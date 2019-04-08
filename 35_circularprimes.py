@@ -43,14 +43,6 @@ def atkin(nmax):
     return primes
 
 
-def getdigits(num):
-    digits = []
-    while num > 0:
-        digits.insert(0, num % 10)
-        num = num // 10
-    return digits
-
-
 def digits2int(digits):
     s = ''
     for digit in digits:
@@ -59,14 +51,14 @@ def digits2int(digits):
 
 
 def rotation(x):
-    digits = getdigits(x)
+    digits = str(x)
     rotations = []
     if len(digits) == 1:
         return [x]
     else:
         new_rotation = 0
         while new_rotation != x:
-            digits.insert(0, digits[-1])
+            digits = digits[-1] + digits
             digits = digits[:-1]
             new_rotation = digits2int(digits)
             rotations.append(new_rotation)
