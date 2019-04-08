@@ -8,9 +8,10 @@
 # d1 × d10 × d100 × d1000 × d10000 × d100000 × d1000000
 
 from itertools import accumulate
+# from functools import reduce
 
 prod_digits = [10**x for x in range(7)]
-idxs = list(accumulate([0] + [(9 * 10**(x - 1)) * x for x in range(1, 8)]))
+idxs = list(accumulate([1] + [(9 * 10**(x - 1)) * x for x in range(1, 8)]))
 print(idxs)
 
 res = []
@@ -19,5 +20,10 @@ for d in prod_digits:
     aantal_cijfers = next(i for i, v in enumerate(idxs) if v > d)
     onder_idx = idxs[aantal_cijfers - 1]
     print(f"{aantal_cijfers} {onder_idx}")
-    getal_idx = (d - onder_idx + 1) // aantal_cijfers
+    getal_idx = (d - onder_idx) // aantal_cijfers
     print(getal_idx)
+    getal = onder_idx + getal_idx
+    print(getal)
+    res.append(int(str(getal)[getal_idx % aantal_cijfers]))
+
+print(res)
