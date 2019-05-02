@@ -18,22 +18,24 @@ max_prime = 2
 max_start = 0
 
 for i, prime in enumerate(primes):
-    som = 0
     start = 0
-    j = start
-    while som < prime:
-        som += primes[j]
-        j += 1
-    if som == prime:
-        print(
-            f"{prime} is the sum of {j} primes starting at {primes[start]}"
-        )
-        if j - start > max_len:
-            max_len = j - start
-            max_prime = prime
-            max_start = start
-            print(f"New wiener {max_prime} with a length of {max_len}")
-            break
+    while start < min([i, 6]):
+        som = 0
+        j = start
+        while som < prime:
+            som += primes[j]
+            j += 1
+        if som == prime:
+            print(
+                f"{prime} is the sum of {j} primes starting at {primes[start]}"
+            )
+            if j - start > max_len:
+                max_len = j - start
+                max_prime = prime
+                max_start = start
+                print(f"New wiener {max_prime} with a length of {max_len}")
+                break
+        start += 1
 
 print(
     f"\nBig wiener {max_prime}: {primes[max_start: max_start + max_len + 1]}"
