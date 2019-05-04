@@ -70,3 +70,17 @@ def prime_factors(n):
     if n > 1:
         factors.append(n)
     return factors
+
+
+def prime_gen(s):
+    if s <= 2:
+        p = 2
+        yield p
+        p += 1
+    else:
+        p = s + 1 - (s % 2)
+    while(True):
+        while not is_prime(p):
+            p += 2
+        yield p
+        p += 2
