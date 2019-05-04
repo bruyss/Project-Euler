@@ -3,6 +3,7 @@
 
 import math
 from functools import reduce
+from itertools import combinations
 
 
 def atkin(nmax):
@@ -84,3 +85,10 @@ def prime_gen(s):
             p += 2
         yield p
         p += 2
+
+
+def comblen(n, r):
+    """
+    nCr = n! / (r! * (n - r)!)
+    """
+    return int(math.factorial(n) / (math.factorial(r) * math.factorial(n - r)))
