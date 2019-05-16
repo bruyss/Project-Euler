@@ -28,3 +28,20 @@
 
 # NOTE: Wording was modified slightly on 24 April 2007 to emphasise the
 # theoretical nature of Lychrel numbers.
+
+from typicals import ispalindrome, revadd
+
+searchlim = 10000
+iterlim = 50
+lychrel = 0
+
+for x in range(searchlim):
+    i = 0
+    res = revadd(x)
+    while i < iterlim and not ispalindrome(res):
+        res = revadd(res)
+        i += 1
+    if i >= iterlim:
+        lychrel += 1
+
+print(f"There are {lychrel} Lychrel({iterlim}) numbers below {searchlim}")

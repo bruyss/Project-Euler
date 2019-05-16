@@ -3,7 +3,7 @@
 
 import math
 from functools import reduce
-from itertools import combinations
+# from itertools import combinations
 
 
 def atkin(nmax):
@@ -92,3 +92,21 @@ def comblen(n, r):
     nCr = n! / (r! * (n - r)!)
     """
     return int(math.factorial(n) / (math.factorial(r) * math.factorial(n - r)))
+
+
+def ispalindrome(n):
+    sn = str(n)
+    if len(sn) < 1:
+        return False
+    else:
+        return sn[:len(sn) // 2] == sn[:(len(sn) // 2) - 1 + len(sn) % 2:-1]
+
+
+def revadd(x):
+    """Returns the sum of x and its reverse"""
+    return x + int(str(x)[::-1])
+
+
+def digitalsum(x):
+    """Sum of the digits in x"""
+    return int(reduce(lambda x, y: int(x) + int(y), list(str(x))))
