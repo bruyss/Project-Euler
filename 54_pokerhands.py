@@ -46,7 +46,6 @@ class Hand(object):
         self.handscore = 0
         self.vals = self.valuedict()
 
-        # Check royal flush/straigh flush/flush/straight
         if self.isflush() and self.isstraight():
             if max(self.cards).value == 14:
                 self.handvalue = Hand.handvalue["RoyalFlush"]
@@ -63,7 +62,6 @@ class Hand(object):
 
         if self.FourOfAKind():
             self.handvalue = Hand.handvalue["FourOfAKind"]
-            self.handscore = 0
             for value in self.vals:
                 if self.vals[value] == 4:
                     self.handscore += value * 15
@@ -71,10 +69,40 @@ class Hand(object):
                     self.handscore += value
 
         if self.isfullhouse():
-            print("FULL HOUSE")
+            self.handvalue = Hand.handvalue["FullHouse"]
+            for value in self.vals:
+                if self.vals[value] == 3:
+                    self.handscore += value * 15
+                else:
+                    self.handscore += value
+
+        if self.ThreeOfAKind():
+            self.handvalue = Hand.handvalue["ThreeOfAKind"]
+            self.handscore += sum([k for k,
+                                   v in self.vals.items() if v == 3]) * 15**2
+            singlecards = [k for k, v in self.vals.items() if v == 1]
+            singlecards.sort()
+            self.handscore += singlecards[0] + singlecards[1] * 15
+
+        if self.twopair():
+            self.handvalue = Hand.handvalue["TwoPairs"]
+            pairs = [k for k, v in self.vals.items() if v == 2]
+            pairs.sort()
+            self.handscore += pairs[0] * 15 + pairs[1] * 15**2
+            self.handscore += sum([k for k, v in self.vals.items() if v == 1])
 
         if self.pair():
-            print("PAIR")
+            self.handvalue = Hand.handvalue["OnePair"]
+            self.handscore += sum([k for k,
+                                   v in self.vals.items() if v == 2]) * 15**3
+            singlecards = [k for k, v in self.vals.items() if v == 1]
+            singlecards.sort()
+            self.handscore += singlecards[0] + \
+                singlecards[1] * 15 + singlecards[2] * 15**2
+
+        if self.handvalue == 0:
+            self.handvalue = Hand.handvalue["HighCard"]
+            mults = [15**x for x in range(5)]
 
     def __str__(self):
         return " ".join(self.cards)
@@ -103,26 +131,18 @@ class Hand(object):
                                             [2, 1, 1, 1])
 
     def twopair(self):
-        return list(self.vals.values()) in ([2, 2, 1], [2, 1, 2], [1, 2, 2])
+        return (
+            self.handvalue < Hand.handvalue["TwoPairs"]
+            and list(self.vals.values()) in ([2, 2, 1], [2, 1, 2], [1, 2, 2])
+        )
 
     def ThreeOfAKind(self):
-        return list(self.vals.values()) in ([3, 1, 1], [1, 3, 1], [1, 1, 3])
+        return (
+            self.handvalue < Hand.handvalue["ThreeOfAKind"]
+            and list(self.vals.values()) in ([3, 1, 1], [1, 3, 1], [1, 1, 3])
+        )
 
     def FourOfAKind(self):
         return list(self.vals.values()) in ([4, 1], [1, 4])
 
 
-c1 = Card("j", "H")
-c2 = Card("j", "H")
-c3 = Card("j", "H")
-c4 = Card("j", "H")
-c5 = Card("a", "H")
-print(str(c1))
-print(c4.suit)
-print(c5 > c4)
-print(c4 <= Card("7", "C"))
-print(min([c1, c2, c3, c4, c5]))
-
-hand1 = Hand([c1, c2, c3, c4, c5])
-print(hand1.handvalue)
-print(hand1.handscore)
