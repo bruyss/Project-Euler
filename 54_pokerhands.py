@@ -10,7 +10,7 @@ class Card(object):
     def __init__(self, value, suit):
         try:
             self.value = int(value)
-        except ValueError as ve:
+        except ValueError:
             self.value = Card.values[value.upper()]
         self.suit = suit.upper()
 
@@ -68,7 +68,7 @@ class Hand(object):
                 if self.vals[value] == 4:
                     self.handscore += value * 15
                 else:
-                    self.handscore += value            
+                    self.handscore += value
 
         if self.isfullhouse():
             print("FULL HOUSE")
