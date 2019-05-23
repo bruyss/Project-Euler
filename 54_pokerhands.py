@@ -10,7 +10,7 @@ class Card(object):
     def __init__(self, value, suit):
         try:
             self.value = int(value)
-        except ValueError as ve:
+        except ValueError:
             self.value = Card.values[value.upper()]
         self.suit = suit.upper()
 
