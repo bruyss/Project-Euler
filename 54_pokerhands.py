@@ -46,20 +46,6 @@ class Hand(object):
         self.handscore = 0
         self.vals = self.valuedict()
 
-        if self.isflush() and self.isstraight():
-            if max(self.cards).value == 14:
-                self.handvalue = Hand.handvalue["RoyalFlush"]
-                print("Royal flush bb!!!!!")
-            else:
-                self.handvalue = Hand.handvalue["StraightFlush"]
-                self.handscore = max(self.cards).value
-        elif self.isflush():
-            self.handvalue = Hand.handvalue["Flush"]
-            self.handscore = max(self.cards).value
-        elif self.isstraight():
-            self.handvalue = Hand.handvalue["Straight"]
-            self.handscore = max(self.cards).value
-
         if self.FourOfAKind():
             self.handvalue = Hand.handvalue["FourOfAKind"]
             for value in self.vals:
@@ -100,12 +86,56 @@ class Hand(object):
             self.handscore += singlecards[0] + \
                 singlecards[1] * 15 + singlecards[2] * 15**2
 
+        if self.isflush() and self.isstraight():
+            if max(self.cards).value == 14:
+                self.handvalue = Hand.handvalue["RoyalFlush"]
+                print("Royal flush bb!!!!!")
+            else:
+                self.handvalue = Hand.handvalue["StraightFlush"]
+                self.handscore = max(self.cards).value
+        elif self.isflush() and self.handscore < Hand.handvalue["Flush"]:
+            self.handvalue = Hand.handvalue["Flush"]
+            self.handscore = max(self.cards).value
+        elif self.isstraight() and self.handscore < Hand.handvalue["Straight"]:
+            self.handvalue = Hand.handvalue["Straight"]
+            self.handscore = max(self.cards).value
+
         if self.handvalue == 0:
             self.handvalue = Hand.handvalue["HighCard"]
+            # print("High card")
             mults = [15**x for x in range(5)]
+            cardvals = map(lambda x: x.value, self.cards)
+            self.handscore += sum({a * b for a, b in zip(cardvals, mults)})
 
     def __str__(self):
-        return " ".join(self.cards)
+        ret = ""
+        for card in self.cards:
+            ret += str(card) + " "
+        return ret.strip()
+
+    def __eq__(self, other):
+        return(
+            self.handvalue == other.handvalue
+            and self.handscore == other.handscore
+        )
+
+    def __gt__(self, other):
+        if self.handvalue > other.handvalue:
+            return True
+        elif self.handvalue == other.handvalue:
+            return self.handscore > other.handscore
+
+    def __lt__(self, other):
+        if self.handvalue < other.handvalue:
+            return True
+        elif self.handvalue == other.handvalue:
+            return self.handscore < other.handscore
+
+    # def __ge__(self, other):
+    #     if self.handvalue >= other.handvalue:
+    #         return True
+    #     else:
+    #         return self.handscore >= other.handscore
 
     def isflush(self):
         return all([self.cards[0].suit == c.suit for c in self.cards])
@@ -125,10 +155,13 @@ class Hand(object):
         return set(self.vals.values()) == {3, 2}
 
     def pair(self):
-        return list(self.vals.values()) in ([1, 1, 1, 2],
-                                            [1, 2, 1, 1],
-                                            [1, 1, 2, 1],
-                                            [2, 1, 1, 1])
+        return (
+            not self.isflush
+            and not self.isstraight
+            and list(self.vals.values()) in ([1, 1, 1, 2],
+                                             [1, 2, 1, 1],
+                                             [1, 1, 2, 1],
+                                             [2, 1, 1, 1]))
 
     def twopair(self):
         return (
@@ -146,3 +179,44 @@ class Hand(object):
         return list(self.vals.values()) in ([4, 1], [1, 4])
 
 
+with open("54_poker.txt", "r") as f:
+    handstext = f.read()
+
+winsP1 = 0
+winsP2 = 0
+draws = 0
+nr = 1
+
+try:
+    for line in handstext.split("\n"):
+        cardsp1 = []
+        cardsp2 = []
+        for card in line.split()[:5]:
+            cardsp1.append(Card(card[0], card[1]))
+        for card in line.split()[5:]:
+            cardsp2.append(Card(card[0], card[1]))
+        hand1 = Hand(cardsp1)
+        hand2 = Hand(cardsp2)
+        if hand1 > hand2:
+            print(f"{nr}\tWin player 1 ({hand1.handvalue} vs {hand2.handvalue}):\t{str(hand1)}   vs   {str(hand2)}")
+            winsP1 += 1
+        if hand2 > hand1:
+            print(f"{nr}\tWin player 2 ({hand1.handvalue} vs {hand2.handvalue}):\t{str(hand1)}   vs   {str(hand2)}")
+            winsP2 += 1
+        if hand1 == hand2:
+            draw += 1
+        nr += 1
+except ValueError as ve:
+    print(ve)
+    pass
+finally:
+    print(f"Player 1 won {winsP1} games")
+    print(f"Player 2 won {winsP2} games")
+    print(f"There were {draws} draws")
+    print(winsP1 + winsP2 + draws)
+
+# # hand1 = Hand([Card(2, "C"), Card(4, "H"), Card(5, "C"), Card("k", "C"), Card(3, "C")])
+# hand2 = Hand([Card(2, "h"), Card(4, "H"), Card(
+#     4, "h"), Card("4", "h"), Card(2, "h")])
+# # print(str(hand1) + f" {hand1.handvalue} {hand1.handscore}")
+# print(str(hand2) + f" {hand2.handvalue} {hand2.handscore}")
