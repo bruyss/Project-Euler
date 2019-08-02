@@ -56,7 +56,7 @@ def is_prime(n):
 
 
 def list2int(l):
-    return int(reduce(lambda x, y: str(x) + str(y), l))
+    return int(''.join(l))
 
 
 def prime_factors(n):
@@ -110,3 +110,23 @@ def revadd(x):
 def digitalsum(x):
     """Sum of the digits in x"""
     return int(reduce(lambda x, y: int(x) + int(y), list(str(x))))
+
+
+def digitalroot(x):
+    """Iterative sum of the digits of x"""
+    while(len(str(x))) > 1:
+        x = digitalsum(x)
+    return x
+
+
+def isperfectcube(x):
+    """Returns true if x can be written as a**3"""
+    if digitalroot(x) not in {1, 8, 9}:
+        return False
+    factors = prime_factors(x)
+    coefs = {factors.count(x) for x in factors}
+    mod = set(map(lambda x: x % 3, coefs))
+    if mod == {0}:
+        return True
+    else:
+        return False
