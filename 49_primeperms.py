@@ -9,7 +9,7 @@
 # What 12-digit number do you form by concatenating the three terms in this
 # sequence?
 
-from functools import reduce
+from typicals import list2int
 import math
 from itertools import permutations
 
@@ -45,10 +45,6 @@ def atkin(nmax):
         else:
             pass
     return primes
-
-
-def list2int(l):
-    return int(reduce(lambda x, y: str(x) + str(y), l))
 
 
 def is_prime(n):
