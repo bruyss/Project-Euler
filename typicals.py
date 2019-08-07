@@ -3,7 +3,7 @@
 
 import math
 from functools import reduce
-# from itertools import combinations
+# from itertools import permutations
 
 
 def atkin(nmax):
@@ -109,14 +109,16 @@ def revadd(x):
 
 def digitalsum(x):
     """Sum of the digits in x"""
-    return int(reduce(lambda x, y: int(x) + int(y), list(str(x))))
+    return sum([int(d) for d in str(x)])
 
 
 def digitalroot(x):
     """Iterative sum of the digits of x"""
-    while(len(str(x))) > 1:
-        x = digitalsum(x)
-    return x
+    s = digitalsum(x)
+    if len(str(s)) == 1:
+        return s
+    else:
+        return digitalroot(s)
 
 
 def isperfectcube(x):
@@ -124,9 +126,19 @@ def isperfectcube(x):
     if digitalroot(x) not in {1, 8, 9}:
         return False
     factors = prime_factors(x)
-    coefs = {factors.count(x) for x in factors}
+    coefs = (factors.count(x) for x in factors)
     mod = set(map(lambda x: x % 3, coefs))
     if mod == {0}:
+        return True
+    else:
+        return False
+
+
+def samedigits(x, y):
+    """Returns true if x & y have exactly the same digits"""
+    xdigs = sorted([d for d in str(x)])
+    ydigs = sorted([d for d in str(y)])
+    if xdigs == ydigs:
         return True
     else:
         return False
