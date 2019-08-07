@@ -46,11 +46,52 @@ def octo(n):
     return n * (3 * n - 2)
 
 
+def arecyclic(x, y):
+    return set(str(x)[-2:]) == set(str(y)[:2])
+
+
+assert(arecyclic(8128, 8236))
+assert(not arecyclic(8128, 8128))
+
 maxr = 141
+# functions = (tri, squ, pent, hexa, hept, octo)
+functions = (tri, squ, pent)
+
+indexlist = [[func(n) for n in range(maxr)] for func in functions]
 
 answerspace = []
-for func in (tri, squ, pent, hexa, hept, octo):
-    new = {func(n) for n in range(maxr) if len(str(func(n))) == 4}
+for func in functions:
+    new = [func(n) for n in range(maxr) if len(str(func(n))) == 4]
     answerspace.append(new)
 
 print(answerspace)
+
+res = [[x] for x in answerspace[0]]
+
+for i in range(1, len(functions)):
+    print(f"Iteration {functions[i].__name__}")
+    newres = []
+    for possibleanswer in res:
+        print(f"Checking {possibleanswer}")
+        for a in answerspace[i]:
+            # print(f"{possibleanswer[-1]} & {a}")
+            if arecyclic(possibleanswer[-1], a):
+                print(f"{possibleanswer[-1]} & {a} are cyclic")
+                newres.append(possibleanswer + [a])
+    res = newres
+
+newres = []
+for r in res:
+    if arecyclic(r[-1], r[0]):
+        newres.append(r)
+
+res = newres
+
+for r in res:
+    s = ""
+    for i, x in enumerate(r):
+        s += str(indexlist[i].index(x)) + " "
+    print(s)
+
+print(res)
+print([sum(r) for r in res])

@@ -7,24 +7,21 @@
 # Find the smallest cube for which exactly five permutations of its digits are
 # cube.
 
-from typicals import list2int
-from itertools import permutations
+# import timeit
+from typicals import samedigits
 
 glen = 5
 rlen = 0
+res = 0
 x = 1002
 cubes = {x**3 for x in range(10**5)}
-
-# assert(isperfectcube(41063625))
 
 while rlen != glen:
     x += 1
     cube = x**3
     print(cube)
-    perms = map(list2int, permutations(str(cube)))
-    perms = {y for y in perms if y >= cube}
-    pc = perms & cubes
-    rlen = len(pc)
+    # cubes = (x**3 for x in range(10**len(str(cube)), 10**(len(str(cube)) + 1)))
+    rlen = len({c for c in cubes if samedigits(c, cube)})
     print(rlen)
 
 print(f'{x}: {cube}')
