@@ -142,3 +142,10 @@ def samedigits(x, y):
         return True
     else:
         return False
+
+def relprime(x, y):
+    """ Returns true if x and y are prime relative to each other """
+    factors_x = set(prime_factors(x))
+    factors_y = set(prime_factors(y))
+    return factors_x.intersection(factors_y) == set()
+
